@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpellCraft SMP - Magický Minecraft Server</title>
+    <style>
+        /* Základné štýly */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #0a1929;
+            color: #f0f8ff;
+            line-height: 1.6;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(41, 128, 185, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(142, 68, 173, 0.15) 0%, transparent 40%);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header a navigácia */
+        header {
+            background: linear-gradient(to right, #1a3a5f, #2c3e50);
+            padding: 20px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            position: relative;
+            border-bottom: 2px solid #3498db;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4ecdc4;
+            text-shadow: 0 0 10px rgba(78, 205, 196, 0.5);
+        }
+        
+        .logo span {
+            color: #ffd166;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+        }
+        
+        nav ul li a {
+            color: #f0f8ff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+        
+        nav ul li a:hover {
+            color: #ffd166;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Hero sekcia */
+        .hero {
+            padding: 100px 0;
+            text-align: center;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect fill="%231a3a5f" width="100" height="100"/><path fill="%232c3e50" d="M0 0L100 100"></path><path fill="%232c3e50" d="M100 0L0 100"></path></svg>') center/cover;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(41, 128, 185, 0.2) 0%, rgba(0, 0, 0, 0) 70%);
+        }
+        
+        .hero-content {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: #ffd166;
+            text-shadow: 0 0 15px rgba(255, 209, 102, 0.5);
+        }
+        
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            color: #f0f8ff;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(to right, #4ecdc4, #2a9d8f);
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 50px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(46, 196, 182, 0.4);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(46, 196, 182, 0.6);
+        }
+        
+        /* Sekcie */
+        section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            color: #4ecdc4;
+            font-size: 2.5rem;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, #4ecdc4, #2a9d8f);
+            margin: 15px auto;
+            border-radius: 2px;
+        }
+        
+        /* Funkcie */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background: rgba(26, 58, 95, 0.6);
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s;
+            border: 1px solid rgba(78, 205, 196, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .feature-icon {
+            font-size: 50px;
+            margin-bottom: 20px;
+            color: #ffd166;
+        }
+        
+        .feature-card h3 {
+            margin-bottom: 15px;
+            color: #4ecdc4;
+        }
+        
+        /* Ako sa pripojiť */
+        .join-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            counter-reset: step-counter;
+        }
+        
+        .step {
+            background: rgba(26, 58, 95, 0.6);
+            border-radius: 10px;
+            padding: 30px;
+            position: relative;
+            border: 1px solid rgba(78, 205, 196, 0.3);
+        }
+        
+        .step::before {
+            counter-increment: step-counter;
+            content: counter(step-counter);
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            background: #4ecdc4;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        /* Footer */
+        footer {
+            background: linear-gradient(to right, #1a3a5f, #2c3e50);
+            padding: 40px 0;
+            text-align: center;
+            border-top: 2px solid #3498db;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .social-links {
+            margin: 20px 0;
+        }
+        
+        .social-links a {
+            color: #f0f8ff;
+            font-size: 1.5rem;
+            margin: 0 15px;
+            transition: color 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: #ffd166;
+        }
+        
+        /* Responzívny dizajn */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 20px;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 0 10px;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">SpellCraft <span>SMP</span></div>
+            <nav>
+                <ul>
+                    <li><a href="#domov">Domov</a></li>
+                    <li><a href="#o-nas">O nás</a></li>
+                    <li><a href="#features">Čo ponúkame</a></li>
+                    <li><a href="#ako-sa-pripojit">Ako sa pripojiť</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero" id="domov">
+        <div class="container hero-content">
+            <h1>SpellCraft SMP</h1>
+            <p>Vstup do kúzelného sveta a objavuj nepoznané kúzla a dobrodružstvá v Minecraft svete!</p>
+            <a href="#ako-sa-pripojit" class="cta-button">Pripojiť sa teraz</a>
+        </div>
+    </section>
+
+    <section id="o-nas">
+        <div class="container">
+            <h2 class="section-title">O nás</h2>
+            <p style="text-align: center; max-width: 800px; margin: 0 auto; font-size: 1.2rem;">
+                Vitajte na stránke SpellCraft SMP, miesto pre všetkých Minecraft hráčov, ktorí hľadajú nové výzvy a kamarátov na spoločné hranie. 
+                Náš server kombinuje kúzelnú atmosféru s jedinečnými mechanikami, ktoré ťa zavedú do sveta plného čarov a tajomstiev.
+            </p>
+        </div>
+    </section>
+
+    <section id="features" style="background: rgba(0, 0, 0, 0.2);">
+        <div class="container">
+            <h2 class="section-title">Čo ponúkame</h2>
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">✨</div>
+                    <h3>Magický systém</h3>
+                    <p>Objavuj nové kúzla a vylepšuj svoje schopnosti v našom jedinečnom magickom systéme.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🏰</div>
+                    <h3>Epické stavby</h3>
+                    <p>Postav si svoj vlastný hrad alebo kúzelnú vežu a ukáž ostatným svoje stavebné schopnosti.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚔️</div>
+                    <h3>Dobrodružstvá</h3>
+                    <p>Zažij neuveriteľné dobrodružstvá a misie so svojimi priateľmi v rozsiahlym svete.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="ako-sa-pripojit">
+        <div class="container">
+            <h2 class="section-title">Ako sa pripojiť</h2>
+            <div class="join-steps">
+                <div class="step">
+                    <h3>Stiahni si Minecraft</h3>
+                    <p>Ak ešte nemáš Minecraft, stiahni si ho z oficiálnej stránky.</p>
+                </div>
+                <div class="step">
+                    <h3>Pridaj náš server</h3>
+                    <p>V menu Multiplayer pridaj nový server s našou IP adresou.</p>
+                </div>
+                <div class="step">
+                    <h3>Registruj sa</h3>
+                    <p>Po pripojení sa zaregistruj pomocou príkazu /register.</p>
+                </div>
+                <div class="step">
+                    <h3>Začni hrať</h3>
+                    <p>Teraz môžeš objavovať náš kúzelný svet a zažiť nové dobrodružstvá!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-content">
+            <div class="logo">SpellCraft <span>SMP</span></div>
+            <div class="social-links">
+                <a href="#">📱 Discord</a>
+                <a href="#">📸 Instagram</a>
+                <a href="#">🎥 YouTube</a>
+            </div>
+            <p>&copy; 2023 SpellCraft SMP. Všetky práva vyhradené.</p>
+        </div>
+    </footer>
+</body>
+</html>
