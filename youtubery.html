@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTubery - Minecraft & Discord Profily</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: #f0f8ff;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 0;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            color: #ff6b6b;
+            text-shadow: 0 0 15px rgba(255, 107, 107, 0.5);
+            margin-bottom: 15px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #f0f8ff;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .profiles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .profile-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .profile-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .profile-icon {
+            font-size: 50px;
+            margin-bottom: 20px;
+            color: #4ecdc4;
+        }
+        
+        .profile-name {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #ffd166;
+        }
+        
+        .profile-detail {
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .profile-detail i {
+            margin-right: 10px;
+            color: #ff6b6b;
+            width: 25px;
+        }
+        
+        .profile-link {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 8px 15px;
+            background: rgba(255, 107, 107, 0.2);
+            color: #ff6b6b;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        
+        .profile-link:hover {
+            background: rgba(255, 107, 107, 0.3);
+        }
+        
+        .links-section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 40px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .links-title {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #ffd166;
+            font-size: 2rem;
+        }
+        
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .link-card {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .link-card:hover {
+            transform: scale(1.05);
+        }
+        
+        .link-card a {
+            color: #4ecdc4;
+            text-decoration: none;
+            font-weight: 500;
+            display: block;
+            padding: 10px;
+            border-radius: 5px;
+            background: rgba(0, 0, 0, 0.3);
+            transition: background 0.3s;
+            word-break: break-all;
+        }
+        
+        .link-card a:hover {
+            background: rgba(0, 0, 0, 0.5);
+            text-decoration: underline;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            color: #f0f8ff;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .profiles-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .links-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>YOUTUBERY</h1>
+            <p class="subtitle">Zoznam Minecraft a Discord profilov našich členov</p>
+        </header>
+        
+        <div class="profiles-grid">
+            <div class="profile-card">
+                <div class="profile-icon">
+                    <i class="fas fa-user"></i>
+                </div>
+                <h2 class="profile-name">BattingChart300</h2>
+                <div class="profile-detail">
+                    <i class="fas fa-gamepad"></i>
+                    <span>MC NICK: BattingChart300</span>
+                </div>
+                <div class="profile-detail">
+                    <i class="fab fa-discord"></i>
+                    <span>DC NICK: BattingChart300</span>
+                </div>
+                <div class="profile-detail">
+                    <i class="fab fa-youtube"></i>
+                    <span>@HOPINKTBAT6845</span>
+                </div>
+                <a href="https://www.youtube.com/@HOPINKTBAT6845" class="profile-link" target="_blank">
+                    <i class="fab fa-youtube"></i> Navštíviť YouTube
+                </a>
+            </div>
+            
+            <div class="profile-card">
+                <div class="profile-icon">
+                    <i class="fas fa-user"></i>
+                </div>
+                <h2 class="profile-name">Sweet_Meet</h2>
+                <div class="profile-detail">
+                    <i class="fas fa-gamepad"></i>
+                    <span>MC NICK: Sweet_Meet</span>
+                </div>
+                <div class="profile-detail">
+                    <i class="fab fa-discord"></i>
+                    <span>DC NICK: yg.matyasek</span>
+                </div>
+                <div class="profile-detail">
+                    <i class="fab fa-youtube"></i>
+                    <span>@SweetMortyx</span>
+                </div>
+                <a href="https://www.youtube.com/@SweetMortyx" class="profile-link" target="_blank">
+                    <i class="fab fa-youtube"></i> Navštíviť YouTube
+                </a>
+            </div>
+            
+            <div class="profile-card">
+                <div class="profile-icon">
+                    <i class="fas fa-user"></i>
+                </div>
+                <h2 class="profile-name">pave016</h2>
+                <div class="profile-detail">
+                    <i class="fas fa-gamepad"></i>
+                    <span>MC NICK: pave016</span>
+                </div>
+                <div class="profile-detail">
+                    <i class="fab fa-discord"></i>
+                    <span>DC NICK: pavel</span>
+                </div>
+                <div class="profile-detail">
+                    <i class="fab fa-youtube"></i>
+                    <span>@pave016</span>
+                </div>
+                <a href="https://www.youtube.com/@pave016" class="profile-link" target="_blank">
+                    <i class="fab fa-youtube"></i> Navštíviť YouTube
+                </a>
+            </div>
+            
+            <div class="profile-card">
+                <div class="profile-icon">
+                    <i class="fas fa-user"></i>
+                </div>
+                <h2 class="profile-name">Viktor09cz</h2>
+                <div class="profile-detail">
+                    <i class="fas fa-gamepad"></i>
+                    <span>MC NICK: Viktor09cz</span>
+                </div>
+                <div class="profile-detail">
+                    <i class="fab fa-discord"></i>
+                    <span>DC NICK: VXTR</span>
+                </div>
+                <div class="profile-detail">
+                    <i class="fab fa-youtube"></i>
+                    <span>@proste.v1ktor</span>
+                </div>
+                <a href="https://www.youtube.com/@proste.v1ktor" class="profile-link" target="_blank">
+                    <i class="fab fa-youtube"></i> Navštíviť YouTube
+                </a>
+            </div>
+
+            <div class="profile-card">
+                <div class="profile-icon">
+                    <i class="fas fa-user"></i>
+                </div>
+                <h2 class="profile-name">FireTRexYTVXD</h2>
+                <div class="profile-detail">
+                    <i class="fas fa-gamepad"></i>
+                    <span>MC NICK: FireTRexYTVXD</span>
+                </div>
+                <div class="profile-detail">
+                    <i class="fab fa-discord"></i>
+                    <span>DC NICK: FireTRexYTVXD</span>
+                </div>
+                <div class="profile-detail">
+                    <i class="fab fa-youtube"></i>
+                    <span>@firetrexytvxd8491</span>
+                </div>
+                <a href="https://www.youtube.com/@firetrexytvxd8491" class="profile-link" target="_blank">
+                    <i class="fab fa-youtube"></i> Navštíviť YouTube
+                </a>
+            </div>
+        </div>
+        
+        <div class="links-section">
+            <h2 class="links-title">Odkazy</h2>
+            <div class="links-grid">
+                <div class="link-card">
+                    <p>Discord server</p>
+                    <a href="https://discord.gg/JwcDm9qJXv" target="_blank">Pripojiť sa na Discord</a>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2023 YOUTUBERY - Všetky práva vyhradené</p>
+        </footer>
+    </div>
+</body>
+</html>
