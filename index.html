@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SpellCraft SMP - Magický Minecraft Server</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* Základné štýly */
         * {
@@ -35,6 +36,9 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
             position: relative;
             border-bottom: 2px solid #3498db;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
         
         .header-content {
@@ -70,23 +74,54 @@
             transition: color 0.3s;
             padding: 5px 10px;
             border-radius: 4px;
+            cursor: pointer;
         }
         
-        nav ul li a:hover {
+        nav ul li a:hover, nav ul li a.active {
             color: #ffd166;
             background: rgba(255, 255, 255, 0.1);
         }
         
+        /* Sekcie */
+        .page-section {
+            display: none;
+            padding: 80px 0;
+            min-height: 70vh;
+        }
+        
+        .page-section.active {
+            display: block;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            color: #4ecdc4;
+            font-size: 2.5rem;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, #4ecdc4, #2a9d8f);
+            margin: 15px auto;
+            border-radius: 2px;
+        }
+        
         /* Hero sekcia */
-        .hero {
+        #uvod {
             padding: 100px 0;
             text-align: center;
             background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect fill="%231a3a5f" width="100" height="100"/><path fill="%232c3e50" d="M0 0L100 100"></path><path fill="%232c3e50" d="M100 0L0 100"></path></svg>') center/cover;
             position: relative;
             overflow: hidden;
+            display: block;
         }
         
-        .hero::before {
+        #uvod::before {
             content: '';
             position: absolute;
             top: 0;
@@ -131,29 +166,6 @@
         .cta-button:hover {
             transform: translateY(-3px);
             box-shadow: 0 6px 20px rgba(46, 196, 182, 0.6);
-        }
-        
-        /* Sekcie */
-        section {
-            padding: 80px 0;
-        }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 60px;
-            color: #4ecdc4;
-            font-size: 2.5rem;
-            position: relative;
-        }
-        
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 80px;
-            height: 4px;
-            background: linear-gradient(to right, #4ecdc4, #2a9d8f);
-            margin: 15px auto;
-            border-radius: 2px;
         }
         
         /* Funkcie */
@@ -224,6 +236,176 @@
             font-size: 1.2rem;
         }
         
+        /* YOUTUBERY sekcia */
+        .profiles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .profile-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .profile-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .profile-icon {
+            font-size: 50px;
+            margin-bottom: 20px;
+            color: #4ecdc4;
+        }
+        
+        .profile-name {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #ffd166;
+        }
+        
+        .profile-detail {
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .profile-detail i {
+            margin-right: 10px;
+            color: #ff6b6b;
+            width: 25px;
+        }
+        
+        .profile-link {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 8px 15px;
+            background: rgba(255, 107, 107, 0.2);
+            color: #ff6b6b;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        
+        .profile-link:hover {
+            background: rgba(255, 107, 107, 0.3);
+        }
+        
+        /* Fotogaléria */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .gallery-item {
+            border-radius: 10px;
+            overflow: hidden;
+            height: 250px;
+            background: rgba(26, 58, 95, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(78, 205, 196, 0.3);
+        }
+        
+        .gallery-item i {
+            font-size: 50px;
+            color: #ffd166;
+        }
+        
+        /* Pravidlá */
+        .rules-list {
+            background: rgba(26, 58, 95, 0.6);
+            border-radius: 10px;
+            padding: 30px;
+            border: 1px solid rgba(78, 205, 196, 0.3);
+        }
+        
+        .rule-item {
+            margin-bottom: 20px;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        .rule-item:before {
+            content: '✦';
+            position: absolute;
+            left: 0;
+            color: #ffd166;
+        }
+        
+        /* FAQ */
+        .faq-item {
+            background: rgba(26, 58, 95, 0.6);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(78, 205, 196, 0.3);
+        }
+        
+        .faq-question {
+            font-weight: bold;
+            color: #4ecdc4;
+            margin-bottom: 10px;
+        }
+        
+        /* Server Info */
+        .server-info {
+            background: rgba(26, 58, 95, 0.6);
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(78, 205, 196, 0.3);
+        }
+        
+        .info-item {
+            margin-bottom: 15px;
+            display: flex;
+        }
+        
+        .info-item strong {
+            min-width: 180px;
+            color: #ffd166;
+        }
+        
+        /* Owner Section */
+        .owners-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+        
+        .owner-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            transition: transform 0.3s;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .owner-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .owner-role {
+            color: #ffd166;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
         /* Footer */
         footer {
             background: linear-gradient(to right, #1a3a5f, #2c3e50);
@@ -263,10 +445,11 @@
             nav ul {
                 margin-top: 20px;
                 justify-content: center;
+                flex-wrap: wrap;
             }
             
             nav ul li {
-                margin: 0 10px;
+                margin: 5px 10px;
             }
             
             .hero h1 {
@@ -275,6 +458,14 @@
             
             .hero p {
                 font-size: 1.2rem;
+            }
+            
+            .info-item {
+                flex-direction: column;
+            }
+            
+            .info-item strong {
+                margin-bottom: 5px;
             }
         }
     </style>
@@ -285,36 +476,215 @@
             <div class="logo">SpellCraft <span>SMP</span></div>
             <nav>
                 <ul>
-                    <li><a href="#domov">Domov</a></li>
-                    <li><a href="#o-nas">O nás</a></li>
-                    <li><a href="#features">Čo ponúkame</a></li>
-                    <li><a href="#ako-sa-pripojit">Ako sa pripojiť</a></li>
+                    <li><a class="nav-link active" data-target="uvod">Úvod</a></li>
+                    <li><a class="nav-link" data-target="fotogaleria">Fotogaléria</a></li>
+                    <li><a class="nav-link" data-target="youtery">YOUTUBERY</a></li>
+                    <li><a class="nav-link" data-target="info">Info o servery</a></li>
+                    <li><a class="nav-link" data-target="pripojenie">AKO SA PRIPOJIŤ</a></li>
+                    <li><a class="nav-link" data-target="otazky">Otázky</a></li>
+                    <li><a class="nav-link" data-target="pravidla">PRAVIDLA</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <section class="hero" id="domov">
+    <!-- Úvod -->
+    <section id="uvod" class="page-section active">
         <div class="container hero-content">
             <h1>SpellCraft SMP</h1>
-            <p>Vstup do kúzelného sveta a objavuj nepoznané kúzla a dobrodružstvá v Minecraft svete!</p>
-            <a href="#ako-sa-pripojit" class="cta-button">Pripojiť sa teraz</a>
+            <p>Vstup do kúzelného sveta SpellCraft SMP a objavuj nepoznané kúzla a dobrodružstvá v Minecraft svete!</p>
+            <p>Vitajte na stránke SpellCraft SMP, miesto pre všetkých Minecraft hráčov, ktorí hľadajú nové výzvy a kamarátov na spoločné hranie.</p>
+            <a class="cta-button" data-target="pripojenie">Pripojiť sa teraz</a>
         </div>
     </section>
 
-    <section id="o-nas">
+    <!-- Fotogaléria -->
+    <section id="fotogaleria" class="page-section">
         <div class="container">
-            <h2 class="section-title">O nás</h2>
-            <p style="text-align: center; max-width: 800px; margin: 0 auto; font-size: 1.2rem;">
-                Vitajte na stránke SpellCraft SMP, miesto pre všetkých Minecraft hráčov, ktorí hľadajú nové výzvy a kamarátov na spoločné hranie. 
-                Náš server kombinuje kúzelnú atmosféru s jedinečnými mechanikami, ktoré ťa zavedú do sveta plného čarov a tajomstiev.
-            </p>
+            <h2 class="section-title">Fotogaléria</h2>
+            <div class="gallery">
+                <div class="gallery-item">
+                    <i class="fas fa-image"></i>
+                </div>
+                <div class="gallery-item">
+                    <i class="fas fa-image"></i>
+                </div>
+                <div class="gallery-item">
+                    <i class="fas fa-image"></i>
+                </div>
+                <div class="gallery-item">
+                    <i class="fas fa-image"></i>
+                </div>
+                <div class="gallery-item">
+                    <i class="fas fa-image"></i>
+                </div>
+                <div class="gallery-item">
+                    <i class="fas fa-image"></i>
+                </div>
+            </div>
         </div>
     </section>
 
-    <section id="features" style="background: rgba(0, 0, 0, 0.2);">
+    <!-- YOUTUBERY -->
+    <section id="youtery" class="page-section">
         <div class="container">
-            <h2 class="section-title">Čo ponúkame</h2>
+            <h2 class="section-title">YOUTUBERY</h2>
+            <div class="profiles-grid">
+                <div class="profile-card">
+                    <div class="profile-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h2 class="profile-name">BattingChart300</h2>
+                    <div class="profile-detail">
+                        <i class="fas fa-gamepad"></i>
+                        <span>MC NICK: BattingChart300</span>
+                    </div>
+                    <div class="profile-detail">
+                        <i class="fab fa-discord"></i>
+                        <span>DC NICK: BattingChart300</span>
+                    </div>
+                    <div class="profile-detail">
+                        <i class="fab fa-youtube"></i>
+                        <span>@HOPINKTBAT6845</span>
+                    </div>
+                    <a href="https://www.youtube.com/@HOPINKTBAT6845" class="profile-link" target="_blank">
+                        <i class="fab fa-youtube"></i> Navštíviť YouTube
+                    </a>
+                </div>
+                
+                <div class="profile-card">
+                    <div class="profile-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h2 class="profile-name">Sweet_Meet</h2>
+                    <div class="profile-detail">
+                        <i class="fas fa-gamepad"></i>
+                        <span>MC NICK: Sweet_Meet</span>
+                    </div>
+                    <div class="profile-detail">
+                        <i class="fab fa-discord"></i>
+                        <span>DC NICK: yg.matyasek</span>
+                    </div>
+                    <div class="profile-detail">
+                        <i class="fab fa-youtube"></i>
+                        <span>@SweetMortyx</span>
+                    </div>
+                    <a href="https://www.youtube.com/@SweetMortyx" class="profile-link" target="_blank">
+                        <i class="fab fa-youtube"></i> Navštíviť YouTube
+                    </a>
+                </div>
+                
+                <div class="profile-card">
+                    <div class="profile-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h2 class="profile-name">pave016</h2>
+                    <div class="profile-detail">
+                        <i class="fas fa-gamepad"></i>
+                        <span>MC NICK: pave016</span>
+                    </div>
+                    <div class="profile-detail">
+                        <i class="fab fa-discord"></i>
+                        <span>DC NICK: pavel</span>
+                    </div>
+                    <div class="profile-detail">
+                        <i class="fab fa-youtube"></i>
+                        <span>@pave016</span>
+                    </div>
+                    <a href="https://www.youtube.com/@pave016" class="profile-link" target="_blank">
+                        <i class="fab fa-youtube"></i> Navštíviť YouTube
+                    </a>
+                </div>
+                
+                <div class="profile-card">
+                    <div class="profile-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h2 class="profile-name">Viktor09cz</h2>
+                    <div class="profile-detail">
+                        <i class="fas fa-gamepad"></i>
+                        <span>MC NICK: Viktor09cz</span>
+                    </div>
+                    <div class="profile-detail">
+                        <i class="fab fa-discord"></i>
+                        <span>DC NICK: VXTR</span>
+                    </div>
+                    <div class="profile-detail">
+                        <i class="fab fa-youtube"></i>
+                        <span>@proste.v1ktor</span>
+                    </div>
+                    <a href="https://www.youtube.com/@proste.v1ktor" class="profile-link" target="_blank">
+                        <i class="fab fa-youtube"></i> Navštíviť YouTube
+                    </a>
+                </div>
+
+                <div class="profile-card">
+                    <div class="profile-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h2 class="profile-name">FireTRexYTVXD</h2>
+                    <div class="profile-detail">
+                        <i class="fas fa-gamepad"></i>
+                        <span>MC NICK: FireTRexYTVXD</span>
+                    </div>
+                    <div class="profile-detail">
+                        <i class="fab fa-discord"></i>
+                        <span>DC NICK: FireTRexYTVXD</span>
+                    </div>
+                    <div class="profile-detail">
+                        <i class="fab fa-youtube"></i>
+                        <span>@firetrexytvxd8491</span>
+                    </div>
+                    <a href="https://www.youtube.com/@firetrexytvxd8491" class="profile-link" target="_blank">
+                        <i class="fab fa-youtube"></i> Navštíviť YouTube
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Info o servery -->
+    <section id="info" class="page-section">
+        <div class="container">
+            <h2 class="section-title">INFO O SERVERY</h2>
+            
+            <div class="server-info">
+                <h3>Technické informácie</h3>
+                <div class="info-item">
+                    <strong>Verzia Minecraftu:</strong>
+                    <span>1.21.1</span>
+                </div>
+                <div class="info-item">
+                    <strong>Typ servera:</strong>
+                    <span>Modovaný SMP (NeoForge)</span>
+                </div>
+                <div class="info-item">
+                    <strong>Podpora:</strong>
+                    <span>Oficiálny Minecraft aj warez verzie</span>
+                </div>
+                <div class="info-item">
+                    <strong>Overovanie:</strong>
+                    <span>Povinné overenie na Discorde</span>
+                </div>
+            </div>
+            
+            <div class="owners-grid">
+                <div class="owner-card">
+                    <div class="owner-role">MAJITEĽ</div>
+                    <h3>BattingChart300</h3>
+                </div>
+                
+                <div class="owner-card">
+                    <div class="owner-role">SPOLU MAJITELIA</div>
+                    <h3>pavel</h3>
+                </div>
+                
+                <div class="owner-card">
+                    <div class="owner-role">SPOLU MAJITELIA</div>
+                    <h3>Aamcas</h3>
+                </div>
+            </div>
+            
             <div class="features">
                 <div class="feature-card">
                     <div class="feature-icon">✨</div>
@@ -332,28 +702,146 @@
                     <p>Zažij neuveriteľné dobrodružstvá a misie so svojimi priateľmi v rozsiahlym svete.</p>
                 </div>
             </div>
+            
+            <div style="text-align: center; margin-top: 50px; max-width: 800px; margin-left: auto; margin-right: auto;">
+                <p>Vitajte na stránke SpellCraft SMP, miesto pre všetkých Minecraft hráčov, ktorí hľadajú nové výzvy a kamarátov na spoločné hranie. Náš server kombinuje kúzelnú atmosféru s jedinečnými mechanikami, ktoré ťa zavedú do sveta plného čarov a tajomstiev.</p>
+            </div>
         </div>
     </section>
 
-    <section id="ako-sa-pripojit">
+    <!-- Ako sa pripojiť -->
+    <section id="pripojenie" class="page-section">
         <div class="container">
-            <h2 class="section-title">Ako sa pripojiť</h2>
+            <h2 class="section-title">AKO SA PRIPOJIŤ NA SMP</h2>
+            
+            <div class="server-info">
+                <h3>Dôležité informácie pred pripojením</h3>
+                <div class="info-item">
+                    <strong>Server je modovaný:</strong>
+                    <span>Vyžaduje sa NeoForge 1.21.1</span>
+                </div>
+                <div class="info-item">
+                    <strong>Podpora:</strong>
+                    <span>Môžeš sa pripojiť cez oficiálny Minecraft aj warez verzie</span>
+                </div>
+                <div class="info-item">
+                    <strong>Overenie:</strong>
+                    <span>Pred hraním sa musíš overiť na našom Discorde</span>
+                </div>
+            </div>
+            
             <div class="join-steps">
                 <div class="step">
-                    <h3>Stiahni si Minecraft</h3>
-                    <p>Ak ešte nemáš Minecraft, stiahni si ho z oficiálnej stránky.</p>
+                    <h3>KROK 1: Pripoj sa na náš Discord</h3>
+                    <p>PRIPOJ SA NA NAŠU DISCORD KOMUNITU A ZOZNÁM SA Z MINECRAFT A DISKORD PRAVIDLAMI.</p>
                 </div>
                 <div class="step">
-                    <h3>Pridaj náš server</h3>
-                    <p>V menu Multiplayer pridaj nový server s našou IP adresou.</p>
+                    <h3>KROK 2: Požiadaj o prístup</h3>
+                    <p>POTOM OZNAČ ROLU (@CHOEM POŽIADAŤ O PRÍSTUP NA SERVER).</p>
                 </div>
                 <div class="step">
-                    <h3>Registruj sa</h3>
-                    <p>Po pripojení sa zaregistruj pomocou príkazu /register.</p>
+                    <h3>KROK 3: Počkaj na odpoveď</h3>
+                    <p>POČKAJ NA ODPOVEĎ A ZAVOLAJ SI S MAJITEĽOM A TÍMOM A ONI TI POŠLÚ KÓD DO CURESFORGU ALEBO DAJÚ POSTUP AKO TEN MODPACK STIAHNUŤ DO WAREZ MC.</p>
                 </div>
                 <div class="step">
-                    <h3>Začni hrať</h3>
-                    <p>Teraz môžeš objavovať náš kúzelný svet a zažiť nové dobrodružstvá!</p>
+                    <h3>KROK 4: Pripoj sa na server</h3>
+                    <p>POTOM TI POŠLÚ IP NA SERVER A KEĎ TAK POVEDIA AJ PRESNÝ POSTUP NA PRIPOJENIE.</p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 40px;">
+                <a href="https://discord.gg/JwcDm9qJXv" class="cta-button" target="_blank">
+                    Pripojiť sa na Discord
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Otázky -->
+    <section id="otazky" class="page-section">
+        <div class="container">
+            <h2 class="section-title">Otázky</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">Ako sa môžem pripojiť na server?</div>
+                <p>Postupuj podľa krokov v sekcii "Ako sa pripojiť". Najprv sa musíš pripojiť na náš Discord a overiť sa, potom si nainštalovať NeoForge 1.21.1 a následne sa pripojiť na server.</p>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Je server zadarmo?</div>
+                <p>Áno, náš server je úplne zadarmo pre všetkých hráčov.</p>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Prečo sa musím overiť na Discorde?</div>
+                <p>Overenie na Discorde nám pomáha zabrániť vstupu nežiaducim osobám a trollom, aby sme udržali priateľské a bezpečné prostredie pre všetkých hráčov.</p>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Môžem sa pripojiť s warez verziou Minecraftu?</div>
+                <p>Áno, náš server podporuje pripojenie z oficiálnych aj warez verzií Minecraftu.</p>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Aké mody sa používajú na servery?</div>
+                <p>Server beží na NeoForge 1.21.1 s vlastnými modifikáciami, ktoré pridávajú kúzelný systém a ďalšie vylepšenia. Presný zoznam modov nájdeš na našom Discorde.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pravidlá -->
+    <section id="pravidla" class="page-section">
+        <div class="container">
+            <h2 class="section-title">PRAVIDLA</h2>
+            
+            <div class="rules-list">
+                <h3>Discord - pravidlá</h3>
+                
+                <div class="rule-item">
+                    <h3>1. Správanie a rešpekt</h3>
+                    <p>Buď slušný a rešpektuj ostatných hráčov aj adminov. Žiadne nadávky, úmyselné provokovanie, toxické správanie alebo hate speech.</p>
+                </div>
+                
+                <div class="rule-item">
+                    <h3>2. Chat & komunikácia</h3>
+                    <p>Píš do správnych kanálov. Žiadny spam, zbytočné pingovanie alebo floodovanie emojimi.</p>
+                </div>
+                
+                <div class="rule-item">
+                    <h3>3. Obsah</h3>
+                    <p>Tento server je bez NSFW – pornografia, gore, extrémne násilie alebo iný nevhodný obsah je zakázaný.</p>
+                </div>
+                
+                <div class="rule-item">
+                    <h3>4. Herná časť (SMP)</h3>
+                    <p>Dodržiavaj všetky pravidlá SMP servera. Streamsniping je zakázaný.</p>
+                </div>
+                
+                <div class="rule-item">
+                    <h3>5. Admini & Moderátori</h3>
+                    <p>Poslúchaj adminov a moderátorov – ich rozhodnutie je konečné.</p>
+                </div>
+                
+                <h3 style="margin-top: 40px;">MC - Pravidlá</h3>
+                
+                <div class="rule-item">
+                    <h3>Spravodlivá hra</h3>
+                    <p>Žiadny streamsniping – zákaz sledovania streamov iných hráčov s cieľom získať výhodu. Žiadne cheaty, hacky alebo X-ray.</p>
+                </div>
+                
+                <div class="rule-item">
+                    <h3>Komunita</h3>
+                    <p>Rešpektuj ostatných hráčov – žiadne urážky, toxicita alebo reálne vyhrážky. Krádeže a griefovanie sú POVOLENÉ – server je survival, chráň si svoj majetok!</p>
+                </div>
+                
+                <div class="rule-item">
+                    <h3>PvP</h3>
+                    <p>PvP je POVOLENÉ bez súhlasu – hocikedy, hocikde (ak nie je oblasť vyhlásená adminom za safe-zónu). Spawn killing je zakázaný.</p>
+                </div>
+                
+                <div class="rule-item">
+                    <h3>Svet a stavby</h3>
+                    <p>Spawn zóna je chránená – neníč stavby v hlavnom spawne a jeho okolí. World grief – masívne ničenie sveta bez účelu je zakázané.</p>
                 </div>
             </div>
         </div>
@@ -363,12 +851,59 @@
         <div class="container footer-content">
             <div class="logo">SpellCraft <span>SMP</span></div>
             <div class="social-links">
-                <a href="#">📱 Discord</a>
-                <a href="#">📸 Instagram</a>
-                <a href="#">🎥 YouTube</a>
+                <a href="https://discord.gg/JwcDm9qJXv" target="_blank"><i class="fab fa-discord"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
             </div>
             <p>&copy; 2023 SpellCraft SMP. Všetky práva vyhradené.</p>
         </div>
     </footer>
+
+    <script>
+        // Funkcionalita prepínania medzi stránkami
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const ctaButton = document.querySelector('.cta-button');
+            const pageSections = document.querySelectorAll('.page-section');
+            
+            // Funkcia na prepnutie sekcie
+            function switchSection(targetId) {
+                pageSections.forEach(section => {
+                    section.classList.remove('active');
+                });
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                });
+                
+                document.getElementById(targetId).classList.add('active');
+                
+                // Nastavíme aktívny link
+                document.querySelector(`.nav-link[data-target="${targetId}"]`).classList.add('active');
+                
+                // Scroll na začiatok sekcie
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+            
+            // Pridanie event listenerov na navigačné odkazy
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    const targetId = this.getAttribute('data-target');
+                    switchSection(targetId);
+                });
+            });
+            
+            // Pridanie event listeneru na CTA tlačidlo
+            if (ctaButton) {
+                ctaButton.addEventListener('click', function() {
+                    const targetId = this.getAttribute('data-target');
+                    switchSection(targetId);
+                });
+            }
+        });
+    </script>
 </body>
 </html>
